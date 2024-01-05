@@ -59,7 +59,6 @@ public class AutomobileRestController implements AutomobileResource, AutomobileO
 
     @PostMapping("/automobiles")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
     public Automobile saveAutomobile(@Valid @RequestBody Automobile automobile) {
         return automobileService.saveAutomobile(automobile);
     }
@@ -101,7 +100,6 @@ public class AutomobileRestController implements AutomobileResource, AutomobileO
 
     @GetMapping("/automobiles/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('PERSON')")
     public Automobile getAutomobileById(@PathVariable Long id) {
         return automobileService.getAutomobileById(id);
     }

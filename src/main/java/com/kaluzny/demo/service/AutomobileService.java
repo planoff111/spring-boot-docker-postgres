@@ -34,15 +34,14 @@ public class AutomobileService {
 
 
     public List<Automobile> findByColorAndSendMessageAndReturn(String color) {
-        try {
-            log.info("Executing findByColorAndSendMessageAndReturn with color: {}", color);
+        try (Connection connection = jmsTemplate.getConnectionFactory().createConnection();
+
+             Session session = connection.createSession()) {
+
+            Topic autoTopic = session.createTopic("AutoTopic-Color");
 
             List<Automobile> automobilesByColor = repository.findByColor(color);
-
-
-            Topic autoTopic = jmsTemplate.getConnectionFactory().createConnection()
-                    .createSession()
-                    .createTopic("AutoTopic-Color");
+            log.info("Executing findByColorAndSendMessageAndReturn with color: {}", color);
 
             log.info("Sending Automobiles to JMS: {}", automobilesByColor);
             jmsTemplate.convertAndSend(autoTopic, automobilesByColor);
@@ -50,13 +49,12 @@ public class AutomobileService {
             log.info("Returning Automobiles: {}", automobilesByColor);
 
             return automobilesByColor;
-
         } catch (JMSException e) {
             log.error("An error occurred while processing JMS operations", e);
-            throw new RuntimeException("Failed to send message", e);
+            throw new RuntimeException("Failed to save and send message", e);
         }
-    }
 
+    }
 
 
     public Automobile saveAndSendMessage(Automobile automobile) {
