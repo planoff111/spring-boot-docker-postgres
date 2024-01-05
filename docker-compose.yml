@@ -62,7 +62,7 @@ services:
     container_name: keycloak-auth
     image: quay.io/keycloak/keycloak:22.0.1
       #build:
-      # context: .
+    # context: .
     #args:
     # KEYCLOAK_VERSION: 22.0.1
     command:

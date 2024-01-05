@@ -1,6 +1,7 @@
 package com.kaluzny.demo.web;
 
 import com.kaluzny.demo.domain.Automobile;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,15 +18,15 @@ public interface AutomobileResource {
 
     Automobile refreshAutomobile(Long id, Automobile automobile);
 
-    String removeAutomobileById(Long id);
+    ResponseEntity<String> removeAutomobileById(Long id);
 
-    void removeAllAutomobiles();
+    ResponseEntity<String> removeAllAutomobiles();
 
-    Collection<Automobile> findAutomobileByColor(String color);
+    ResponseEntity<Collection<Automobile>> findAutomobileByColor(String color);
 
-    Collection<Automobile> findAutomobileByNameAndColor(String name, String color);
+    ResponseEntity<Collection<Automobile>> findAutomobileByNameAndColor(String name, String color);
 
-    Collection<Automobile> findAutomobileByColorStartsWith(String colorStartsWith, int page, int size);
+    ResponseEntity<Collection<Automobile>> findAutomobileByColorStartsWith(String colorStartsWith, int page, int size);
 
-    List<String> getAllAutomobilesByName();
+    ResponseEntity<List<String>> getAllAutomobilesByName();
 }

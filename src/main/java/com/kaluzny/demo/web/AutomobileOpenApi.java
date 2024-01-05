@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
@@ -59,7 +60,7 @@ public interface AutomobileOpenApi extends AutomobileResource {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "Automobile not found")})
-    String removeAutomobileById(
+    ResponseEntity<String> removeAutomobileById(
             @Parameter(description = "Id of the Automobile to be delete. Cannot be empty.", required = true) Long id);
 
 
